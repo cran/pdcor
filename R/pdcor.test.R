@@ -1,4 +1,4 @@
-pdcor.test <- function (x, y, z, type = 1, R = 500) {
+pdcor.test <- function(x, y, z, type = 1, R = 500) {
 
   if ( is.vector(x) ) {
     n <- length(x)
@@ -8,24 +8,26 @@ pdcor.test <- function (x, y, z, type = 1, R = 500) {
     up <- a1 - a2 * a3
     down <- sqrt(1 - a2^2) * sqrt(1 - a3^2)
     stat <- up/down
-    if ( type == 1 ) {
-      pstat <- numeric(R)
-      for ( i in 1:R ) {
-        id <- Rfast2::Sample.int(n, n)
-        a1 <- dcov::dcor(x[id], y, type = "U")
-        a2 <- dcov::dcor(x[id], z, type = "U")
+    if ( R > 1 ) {
+      if ( type == 1 ) {
+        pstat <- numeric(R)
+        for ( i in 1:R ) {
+          id <- Rfast2::Sample.int(n, n)
+          a1 <- dcov::dcor(x[id], y, type = "U")
+          a2 <- dcov::dcor(x[id], z, type = "U")
+          up <- a1 - a2 * a3
+          down <- sqrt(1 - a2^2) * sqrt(1 - a3^2)
+          pstat[i] <- up/down
+        }
+      } else {
+        x <- replicate( R, Rfast2::Sample(x, n) )
+        a1 <- dcov::mdcor(y, x, type = 'U')
+        a2 <- dcov::mdcor(z, x, type = 'U')
         up <- a1 - a2 * a3
         down <- sqrt(1 - a2^2) * sqrt(1 - a3^2)
-        pstat[i] <- up/down
-      }
-    } else {
-      x <- replicate( R, Rfast2::Sample(x, n) )
-      a1 <- dcov::mdcor(y, x, type = 'U')
-      a2 <- dcov::mdcor(z, x, type = 'U')
-      up <- a1 - a2 * a3
-      down <- sqrt(1 - a2^2) * sqrt(1 - a3^2)
-      pstat <- up / down
-    }
+        pstat <- up / down
+      }  ##  end  if ( type == 1 ) {
+    }  ##  end  if ( R > 1 ) {
 
   } else {
     a1 <- Rfast::dcor(x, y, bc = TRUE)$dcor
@@ -34,16 +36,20 @@ pdcor.test <- function (x, y, z, type = 1, R = 500) {
     up <- a1 - a2 * a3
     down <- sqrt(1 - a2^2) * sqrt(1 - a3^2)
     stat <- up/down
-    pstat <- numeric(R)
-    for ( i in 1:R ) {
-      id <- Rfast2::Sample.int(n, n)
-      a1 <- Rfast::dcor(x[id, ], y, bc = TRUE)$dcor
-      a2 <- Rfast::dcor(x[id, ], z, bc = TRUE)$dcor
-      up <- a1 - a2 * a3
-      down <- sqrt(1 - a2^2) * sqrt(1 - a3^2)
-      pstat[i] <- up/down
-    }
+    if ( R > 1 ) {
+      pstat <- numeric(R)
+      for ( i in 1:R ) {
+        id <- Rfast2::Sample.int(n, n)
+        a1 <- Rfast::dcor(x[id, ], y, bc = TRUE)$dcor
+        a2 <- Rfast::dcor(x[id, ], z, bc = TRUE)$dcor
+        up <- a1 - a2 * a3
+        down <- sqrt(1 - a2^2) * sqrt(1 - a3^2)
+        pstat[i] <- up/down
+      }
+    }  ##  end if ( R > 1 )
   }
+
+  if ( R > 1 )  perm.pvalue <- ( sum( pstat > stat ) + 1 ) / (R + 1)  else  perm.pvalue <- NULL
 
   res <- c( stat, ( sum( pstat > stat ) + 1 ) / (R + 1), pchisq(1 + n * stat, 1, lower.tail = FALSE) )
   names(res) <- c("udcor", "permutation p-value", "asymptotic p-value")

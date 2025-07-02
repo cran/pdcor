@@ -1,11 +1,11 @@
-\name{Permutation testing for the partial distance correlation}
+\name{Hypothesis testing for the partial distance correlation}
 \alias{pdcor.test}
 \title{
-Permutation testing for the partial distance correlation
+Hypothesis testing for the partial distance correlation
 }
 
 \description{
-Permutation testing for the partial distance correlation.
+Hypothesis testing for the partial distance correlation.
 }
 
 \usage{
@@ -23,20 +23,20 @@ A numerical vector or  matrix.
 A numerical vector or matrix.
 }
 \item{type}{
-In case that all x, y, and z are vectors the user may select the type = 2 which is even faster, but at the expense of requiring more memory.
+In case that all x, y, and z are vectors the user may select the type = 2 which is even faster,
+but at the expense of requiring more memory.
 }
 \item{R}{
-The number of permutations to implement.
+The number of permutations to implement. If R = 1, the the asymptotic p-value is returned only.
 }
 }
-
 
 \details{
-Permuation testing using the unbiased partial distance correlation between x and y conditioning on z is computed. \bold{Note:} currently, ony two cases are supported, all x, y, and z are vectors or they are all matrices with the same dimensions.
+Hypothesis testing using the unbiased partial distance correlation between x and y conditioning on z is computed. \bold{Note:} currently, ony two cases are supported, all x, y, and z are vectors or they are all matrices with the same dimensions.
 }
 
 \value{
-A vector with the unbiased partial distance correlation, the permutation based p-value and the asymptotic p-value.
+A vector with the unbiased partial distance correlation, the permutation based p-value and the asymptotic p-value as proposed by Shen, Panda and Vogelstein (2022).
 }
 
 \references{
@@ -51,6 +51,8 @@ Chapman and Hall/CRC.
 
 Tsagris M. and Papadakis M. (2025). Fast and light-weight energy statistics using the R package Rfast.
 https://arxiv.org/abs/2501.02849
+
+Kontemeniotis N., Vargiakakis R. and Tsagris M. (2025). On independence testing using the (partial) distance correlation. https://arxiv.org/abs/2506.15659v1
 }
 
 \author{

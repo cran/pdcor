@@ -1,4 +1,4 @@
-pdcor <- function (x, y, z) {
+pdcor <- function(x, y, z) {
   if ( is.vector(x) ) {
     a1 <- dcov::dcor(x, y, type = "U")
     a2 <- dcov::dcor(x, z, type = "U")
