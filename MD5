@@ -1,11 +1,11 @@
-a701cbecefdf78f7a99c0d1fa0efaa9b *DESCRIPTION
-9677fde8cce9d32aff0b3f4579f039fb *NAMESPACE
+6defe81992b2da990949de5d5f8ae317 *DESCRIPTION
+57cd7f812f2672d599c897ab9d6481e9 *NAMESPACE
 3aa48a6527f02daa003ff3108ffc2f6d *R/mpdcor.R
 85c4203721a13bc85cee0269805d110b *R/mpdcor.test.R
 1d3ca0f46d5d9e1c60389f66cddf8b7f *R/pdcor.R
 cb6f2481c156448b2aa86944094331b4 *R/pdcor.test.R
 f543e1793ed452eae9662c40c35269c6 *man/mpdcor.Rd
 e0f9c30a03a0540d02faf029b6f14f09 *man/mpdcor.test.Rd
-7d75d447103a0940ae91519a1fcbce24 *man/pdcor-package.Rd
+190a9b5d0a6b00b28bd00703e241f3cf *man/pdcor-package.Rd
 12e94ba6cf008b684e6af2d709cefd58 *man/pdcor.Rd
 bb82dde0fec0a4635b439c9ba367d7c7 *man/pdcor.test.Rd
